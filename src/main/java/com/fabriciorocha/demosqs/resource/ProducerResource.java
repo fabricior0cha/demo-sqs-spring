@@ -27,4 +27,15 @@ public class ProducerResource {
         return ResponseEntity.ok(result.message().toString());
 
     }
+
+    @PostMapping("/with_dlq")
+    ResponseEntity<String> createMessageWithDlq(@RequestBody String message){
+
+        SendResult result = sqsTemplate.send(sqsSendOptions -> {
+            sqsSendOptions.queue("demo_queue_with_dlq");
+            sqsSendOptions.payload(message);
+        });
+        return ResponseEntity.ok(result.message().toString());
+
+    }
 }
