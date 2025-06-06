@@ -10,6 +10,7 @@ DLQ_ARN=$(aws --endpoint-url=http://localstack:4566 sqs get-queue-attributes --q
 
 aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name demo_queue_with_dlq
 
+aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name demo_queue_rate_limiter
 
 WITH_DLQ_URL=$(aws --endpoint-url=http://localstack:4566 sqs get-queue-url --queue-name demo_queue_with_dlq --query QueueUrl --output text)
 

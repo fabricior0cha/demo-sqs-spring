@@ -38,4 +38,13 @@ public class ProducerResource {
         return ResponseEntity.ok(result.message().toString());
 
     }
+
+    @PostMapping("/with_rate_limiter")
+    ResponseEntity<String> createMessageWithRateLimiter(@RequestBody String message){
+        SendResult result = sqsTemplate.send(sqsSendOptions -> {
+            sqsSendOptions.queue("demo_queue_rate_limiter");
+            sqsSendOptions.payload(message);
+        });
+        return ResponseEntity.ok(result.message().toString());
+    }
 }
